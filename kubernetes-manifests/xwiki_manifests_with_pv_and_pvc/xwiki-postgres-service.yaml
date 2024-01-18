@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: xwiki-postgres
+spec:
+  selector:
+    app: xwiki-postgres
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432

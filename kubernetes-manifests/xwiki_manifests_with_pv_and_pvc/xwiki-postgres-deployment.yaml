@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xwiki-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xwiki-postgres
+  template:
+    metadata:
+      labels:
+        app: xwiki-postgres
+    spec:
+      containers:
+      - name: xwiki-postgres
+        image: postgres
+        env:
+          - name: POSTGRES_DB
+            value: "xwiki"  # Replace with your PostgreSQL database name
+          - name: POSTGRES_USER
+            value: "xwiki"  # Replace with your PostgreSQL username
+          - name: POSTGRES_PASSWORD
+            value: "xwiki"  # Replace with your PostgreSQL password
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: xwiki-postgres-pvc
+          mountPath: "/var/lib/postgresql/data"
+      volumes:
+      - name: xwiki-postgres-pvc
+        persistentVolumeClaim:
+          claimName: xwiki-postgres-pvc

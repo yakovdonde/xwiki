@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: xwiki-service
+spec:
+  type: NodePort # Change to LoadBalancer is your infrastructure supports it
+  selector:
+    app: xwiki
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    nodePort: 30001  # Assign a specific NodePort number, e.g., 31000

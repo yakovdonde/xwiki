@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xwiki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xwiki
+  template:
+    metadata:
+      labels:
+        app: xwiki
+    spec:
+      containers:
+      - name: xwiki
+        image: xwiki:postgres-tomcat
+        env:
+          - name: DB_TYPE
+            value: "postgresql"
+          - name: DB_HOST
+            value: "postgres"  # Replace with your PostgreSQL host
+          - name: DB_PORT
+            value: "5432"
+          - name: DB_NAME
+            value: "xwiki"  # Replace with your PostgreSQL database name
+          - name: DB_USER
+            value: "xwiki"  # Replace with your PostgreSQL username
+          - name: DB_PASSWORD
+            value: "xwiki"  # Replace with your PostgreSQL password
+        ports:
+        - containerPort: 8080
+
+
